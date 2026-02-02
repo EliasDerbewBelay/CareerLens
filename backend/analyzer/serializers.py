@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Resume
-
+from .models import JobAnalysis
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -24,3 +24,9 @@ class ResumeSerializer(serializers.ModelSerializer):
         model = Resume
         fields = ['id', 'file', 'extracted_text', 'uploaded_at']
         read_only_fields = ['extracted_text', 'uploaded_at']
+
+
+class JobAnalysisSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobAnalysis
+        fields = "__all__"

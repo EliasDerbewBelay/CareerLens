@@ -17,7 +17,8 @@ class JobAnalysis(models.Model):
     match_percentage = models.FloatField()
     matched_keywords = models.JSONField(default=list)
     missing_keywords = models.JSONField(default=list)
+    feedback = models.JSONField(default=list)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Analysis for {self.resume.user.username}"
+        return f"Analysis {self.id} - {self.match_percentage}%"
