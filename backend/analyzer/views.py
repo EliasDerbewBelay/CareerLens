@@ -11,6 +11,8 @@ from rest_framework import generics
 from django.contrib.auth.models import User 
 from .serializers import RegisterSerializer
 
+from .embeddings import get_similarity
+
 from .models import JobAnalysis
 from .utils import SKILLS
 
@@ -54,7 +56,7 @@ class JobMatchView(APIView):
 
     def post(self, request):
         resume_id = request.data.get("resume_id")
-        job_description = request.data.get("job_description", "").lower()
+        job_description = request.data.get("job_description")
 
         if not resume_id or not job_description:
             return Response(
@@ -63,31 +65,23 @@ class JobMatchView(APIView):
             )
 
         resume = Resume.objects.get(id=resume_id, user=request.user)
-        resume_text = resume.extracted_text.lower()
 
-        matched = []
-        missing = []
+        similarity_score = get_similarity(
+            resume.extracted_text,
+            job_description
+        )
 
-        for skill in SKILLS:
-            if skill in job_description:
-                if skill in resume_text:
-                    matched.append(skill)
-                else:
-                    missing.append(skill)
-
-        total = len(matched) + len(missing)
-        match_percentage = (len(matched) / total * 100) if total > 0 else 0
+        match_percentage = round(similarity_score * 100, 2)
 
         analysis = JobAnalysis.objects.create(
             resume=resume,
             job_description=job_description,
             match_percentage=match_percentage,
-            matched_keywords=matched,
-            missing_keywords=missing
+            matched_keywords=[],
+            missing_keywords=[]
         )
 
         return Response({
             "match_percentage": match_percentage,
-            "matched_skills": matched,
-            "missing_skills": missing
+            "message": "AI-based semantic matching completed"
         })
