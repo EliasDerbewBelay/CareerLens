@@ -10,3 +10,14 @@ class Resume(models.Model):
 
     def __str__(self):
         return f"{self.user.username} Resume"
+
+class JobAnalysis(models.Model):
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE)
+    job_description = models.TextField()
+    match_percentage = models.FloatField()
+    matched_keywords = models.JSONField(default=list)
+    missing_keywords = models.JSONField(default=list)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Analysis for {self.resume.user.username}"
