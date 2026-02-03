@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import api from "@/lib/api";
 import MatchResult from "./MatchResult";
 import { MatchResult as MatchResultType } from "@/types";
@@ -10,6 +11,18 @@ export default function JobMatchForm() {
   const [resumeId, setResumeId] = useState<number | null>(null);
   const [result, setResult] = useState<MatchResultType | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const router = useRouter();
+
+  // Check authentication on mount
+  useEffect(() => {
+    const token = localStorage.getItem("access");
+    if (!token) {
+      router.push("auth/login");
+    } else {
+      setIsAuthenticated(true);
+    }
+  }, [router]);
 
   const analyze = async () => {
     if (!resumeId || !jobDescription) {
@@ -18,17 +31,27 @@ export default function JobMatchForm() {
     }
 
     setLoading(true);
-    const res = await api.post("job/match/", {
-      resume_id: resumeId,
-      job_description: jobDescription,
-    });
-    setResult(res.data);
-    setLoading(false);
+    try {
+      const res = await api.post("job/match/", {
+        resume_id: resumeId,
+        job_description: jobDescription,
+      });
+      setResult(res.data);
+    } catch (error) {
+      console.error("Analysis failed:", error);
+      alert("Analysis failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  if (!localStorage.getItem("access")) {
-    alert("Please login first");
-    return;
+  // Show loading while checking auth
+  if (isAuthenticated === null) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isAuthenticated) {
+    return null;
   }
 
   return (
