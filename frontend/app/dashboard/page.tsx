@@ -2,6 +2,7 @@
 
 import ResumeUpload from "@/components/ResumeUpload";
 import JobMatchForm from "@/components/JobMatchForm";
+import Link from "next/link";
 
 export default function Dashboard() {
   return (
@@ -10,6 +11,13 @@ export default function Dashboard() {
 
       <ResumeUpload />
       <JobMatchForm />
+
+      <Link
+        href="/dashboard/history"
+        className="text-sm underline text-gray-600"
+      >
+        View Analysis History →
+      </Link>
     </div>
   );
 }

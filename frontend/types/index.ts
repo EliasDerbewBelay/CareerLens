@@ -5,3 +5,12 @@ export interface MatchResult {
   missing_skills: string[];
   feedback: string[];
 }
+
+export interface JobAnalysis {
+  id: number;
+  match_percentage: number;
+  matched_keywords: string[];
+  missing_keywords: string[];
+  feedback: string[];
+  created_at: string;
+}
