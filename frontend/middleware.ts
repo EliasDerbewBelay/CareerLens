@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get("access");
-
   const isDashboardRoute = request.nextUrl.pathname.startsWith("/dashboard");
 
   if (isDashboardRoute && !token) {
@@ -15,3 +14,5 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: ["/dashboard/:path*"],
 };
+
+

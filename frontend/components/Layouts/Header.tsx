@@ -177,25 +177,6 @@ export default function Header() {
                 </>
               ) : (
                 <>
-                  <Link href="/notifications">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="text-muted-foreground hover:text-foreground relative"
-                    >
-                      <Bell className="h-4 w-4" />
-                      <span className="absolute -top-1 -right-1 h-2 w-2 bg-red-500 rounded-full animate-pulse" />
-                    </Button>
-                  </Link>
-                  <Link href="/dashboard">
-                    <Button
-                      variant="ghost"
-                      className="flex items-center space-x-2 text-muted-foreground hover:text-foreground"
-                    >
-                      <User className="h-4 w-4" />
-                      <span>Dashboard</span>
-                    </Button>
-                  </Link>
                   <Link href="/settings">
                     <Button
                       variant="ghost"
