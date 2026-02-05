@@ -5,7 +5,7 @@ import { ModeToggle } from "../ThemeToggle";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { Menu, X, User, Bell, Settings } from "lucide-react";
+import { Menu, X, User, Bell, Settings, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function Header() {
@@ -84,6 +84,7 @@ export default function Header() {
     window.dispatchEvent(new Event("authChange"));
   };
 
+  // Navigation links - removed pricing, features, and analyzing
   const navLinks = [
     {
       href: "/dashboard",
@@ -91,11 +92,12 @@ export default function Header() {
       authenticated: true,
       icon: <User className="h-4 w-4" />,
     },
-    { href: "/analyze", label: "Analyze", authenticated: true, icon: null },
-    { href: "dashboard/history", label: "History", authenticated: true, icon: null },
-    { href: "/features", label: "Features", authenticated: false, icon: null },
-    { href: "/pricing", label: "Pricing", authenticated: false, icon: null },
-    { href: "/about", label: "About", authenticated: false, icon: null },
+    {
+      href: "dashboard/history",
+      label: "History",
+      authenticated: true,
+      icon: null,
+    },
   ];
 
   return (
@@ -128,12 +130,6 @@ export default function Header() {
           <nav className="hidden md:flex items-center space-x-1">
             {navLinks.map((link) => {
               if (link.authenticated && !isAuthenticated) return null;
-              if (
-                !link.authenticated &&
-                isAuthenticated &&
-                link.href === "/features"
-              )
-                return null; // Hide features when logged in
               return (
                 <Link
                   key={link.href}
@@ -154,6 +150,19 @@ export default function Header() {
 
           {/* Right side actions */}
           <div className="flex items-center space-x-3">
+            {/* About button added here - only for non-authenticated users */}
+            {!isAuthenticated && (
+              <Link href="/about">
+                <Button
+                  variant="ghost"
+                  className="text-muted-foreground hover:text-foreground hidden md:flex items-center gap-2"
+                >
+                  <Info className="h-4 w-4" />
+                  About
+                </Button>
+              </Link>
+            )}
+
             <ModeToggle />
 
             <div className="hidden md:flex items-center space-x-2">
@@ -218,12 +227,6 @@ export default function Header() {
             <nav className="flex flex-col space-y-2">
               {navLinks.map((link) => {
                 if (link.authenticated && !isAuthenticated) return null;
-                if (
-                  !link.authenticated &&
-                  isAuthenticated &&
-                  link.href === "/features"
-                )
-                  return null;
                 return (
                   <Link
                     key={link.href}
@@ -241,6 +244,23 @@ export default function Header() {
                   </Link>
                 );
               })}
+
+              {/* About link in mobile menu for non-authenticated users */}
+              {!isAuthenticated && (
+                <Link
+                  href="/about"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={cn(
+                    "px-4 py-3 text-sm font-medium transition-colors rounded-lg flex items-center gap-3",
+                    pathname === "/about"
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent",
+                  )}
+                >
+                  <Info className="h-4 w-4" />
+                  About
+                </Link>
+              )}
 
               <div className="px-4 pt-4 border-t">
                 {!isAuthenticated ? (
