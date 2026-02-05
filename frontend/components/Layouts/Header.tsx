@@ -93,7 +93,7 @@ export default function Header() {
       icon: <User className="h-4 w-4" />,
     },
     {
-      href: "dashboard/history",
+      href: "/dashboard/history",
       label: "History",
       authenticated: true,
       icon: null,

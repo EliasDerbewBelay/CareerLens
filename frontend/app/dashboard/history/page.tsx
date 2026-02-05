@@ -74,14 +74,6 @@ export default function HistoryPage() {
     return true;
   });
 
-  const getScoreColor = (score: number) => {
-    if (score >= 80)
-      return "text-emerald-600 bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200";
-    if (score >= 60)
-      return "text-amber-600 bg-amber-50 dark:bg-amber-950/30 border-amber-200";
-    return "text-red-600 bg-red-50 dark:bg-red-950/30 border-red-200";
-  };
-
   const getScoreBadgeColor = (score: number) => {
     if (score >= 80)
       return "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300";

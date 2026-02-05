@@ -1,4 +1,6 @@
 import { MatchResult as MatchResultType } from "@/types";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 export default function MatchResult({ result }: { result: MatchResultType }) {
   return (
@@ -32,6 +34,12 @@ export default function MatchResult({ result }: { result: MatchResultType }) {
             <li key={idx}>{line}</li>
           ))}
         </ul>
+      </div>
+
+      <div>
+        <Link href={`/dashboard/history/${result.analysis_id}`}>
+          <Button>see detail of analysis</Button>
+        </Link>
       </div>
     </div>
   );

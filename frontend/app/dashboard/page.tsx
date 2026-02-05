@@ -12,39 +12,17 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  FileText,
   BarChart3,
   History,
   Sparkles,
   Upload,
-  Target,
-  TrendingUp,
-  Award,
   ChevronRight,
+  Plus,
+  FileText,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
-
 export default function Dashboard() {
-  const stats = [
-    {
-      label: "Resumes Analyzed",
-      value: "24",
-      icon: <FileText className="h-4 w-4" />,
-    },
-    {
-      label: "Avg Match Rate",
-      value: "78%",
-      icon: <TrendingUp className="h-4 w-4" />,
-    },
-    {
-      label: "Jobs Applied",
-      value: "12",
-      icon: <Target className="h-4 w-4" />,
-    },
-    { label: "Best Score", value: "94%", icon: <Award className="h-4 w-4" /> },
-  ];
-
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -75,29 +53,9 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Stats Grid */}
+      {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          {stats.map((stat, index) => (
-            <Card key={index}>
-              <CardContent className="pt-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-2xl font-bold">{stat.value}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {stat.label}
-                    </p>
-                  </div>
-                  <div className="p-2 rounded-lg bg-primary/10">
-                    {stat.icon}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8" id="upload-section">
           {/* Resume Upload Card */}
           <Card className="border-primary/20">
             <CardHeader>
@@ -131,64 +89,46 @@ export default function Dashboard() {
           </Card>
         </div>
 
-        {/* Quick Actions */}
+        {/* Quick Guide */}
         <Card className="mt-8">
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
+            <CardTitle>How to Use CareerLens</CardTitle>
             <CardDescription>
-              Get started with these quick actions
+              Follow these steps to get the most out of your career analysis
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Button
-                variant="outline"
-                className="h-auto py-4 justify-start"
-                asChild
-              >
-                <Link
-                  href="/dashboard/templates"
-                  className="flex flex-col items-start"
-                >
-                  <FileText className="h-5 w-5 mb-2" />
-                  <span className="font-medium">Resume Templates</span>
-                  <span className="text-sm text-muted-foreground mt-1">
-                    Get professional templates
-                  </span>
-                </Link>
-              </Button>
-              <Button
-                variant="outline"
-                className="h-auto py-4 justify-start"
-                asChild
-              >
-                <Link
-                  href="/dashboard/insights"
-                  className="flex flex-col items-start"
-                >
-                  <Sparkles className="h-5 w-5 mb-2" />
-                  <span className="font-medium">AI Insights</span>
-                  <span className="text-sm text-muted-foreground mt-1">
-                    Get personalized tips
-                  </span>
-                </Link>
-              </Button>
-              <Button
-                variant="outline"
-                className="h-auto py-4 justify-start"
-                asChild
-              >
-                <Link
-                  href="/dashboard/settings"
-                  className="flex flex-col items-start"
-                >
-                  <Target className="h-5 w-5 mb-2" />
-                  <span className="font-medium">Job Preferences</span>
-                  <span className="text-sm text-muted-foreground mt-1">
-                    Set your job targets
-                  </span>
-                </Link>
-              </Button>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="space-y-3">
+                <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <span className="font-bold text-primary">1</span>
+                </div>
+                <h4 className="font-semibold">Upload Resume</h4>
+                <p className="text-sm text-muted-foreground">
+                  Upload your current resume in PDF format. Our AI will extract
+                  key information.
+                </p>
+              </div>
+              <div className="space-y-3">
+                <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <span className="font-bold text-primary">2</span>
+                </div>
+                <h4 className="font-semibold">Analyze Jobs</h4>
+                <p className="text-sm text-muted-foreground">
+                  Paste job descriptions to get match scores and improvement
+                  suggestions.
+                </p>
+              </div>
+              <div className="space-y-3">
+                <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <span className="font-bold text-primary">3</span>
+                </div>
+                <h4 className="font-semibold">View Details</h4>
+                <p className="text-sm text-muted-foreground">
+                  Click "View Analysis" to see detailed breakdowns and
+                  recommendations.
+                </p>
+              </div>
             </div>
           </CardContent>
         </Card>

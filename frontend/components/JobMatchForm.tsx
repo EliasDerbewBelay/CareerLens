@@ -159,31 +159,6 @@ export default function JobMatchForm() {
         )}
       </Button>
 
-      {/* Tips */}
-      <Card className="border-primary/20">
-        <CardContent className="pt-6">
-          <div className="flex items-start gap-3">
-            <Sparkles className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-            <div className="space-y-2">
-              <p className="font-medium">How to use this tool</p>
-              <div className="text-sm text-muted-foreground space-y-2">
-                <p>
-                  1. First, upload your resume using the "Upload Resume" section
-                  above
-                </p>
-                <p>2. Copy the Resume ID from the success message</p>
-                <p>3. Paste the job description you want to analyze</p>
-                <p>4. Click "Analyze Match" to get AI-powered insights</p>
-                <p className="pt-2 font-medium text-foreground">
-                  For best results, paste the entire job description including
-                  required skills, qualifications, and responsibilities.
-                </p>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
       {/* Results */}
       {result && (
         <div className="space-y-4">
@@ -192,6 +167,7 @@ export default function JobMatchForm() {
             <h3 className="text-lg font-semibold">Analysis Results</h3>
           </div>
           <MatchResult result={result} />
+          
         </div>
       )}
     </div>
